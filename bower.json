@@ -3,6 +3,6 @@
   "dependencies": {
     "polymer": "Polymer/polymer#~0.5",
     "z-markdown": "Jinjiang/z-markdown",
-    "context-free-parser": "Jinjiang/context-free-parser"
+    "docs-parser": "Jinjiang/context-free-parser"
   }
 }
