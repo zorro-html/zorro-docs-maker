@@ -1,0 +1,38 @@
+<!--
+  # `z-example`
+
+  用来生成demo和代码片段展示
+-->
+<link rel="import" href="../polymer/polymer.html">
+
+<polymer-element name="z-example" attributes="code">
+  <template>
+      <div example-container></div>
+      <pre>{{code}}</pre>
+    </template>
+  </template>
+  <script>
+    Polymer('z-example', {
+
+      code: '',
+
+      container: null,
+
+      codeChanged: function () {
+        this.code = this.trimEmptyLines(this.code);
+        if (this.container) {
+          this.container.innerHTML = this.code;
+        }
+      },
+
+      ready: function () {
+        this.container = this.shadowRoot.querySelector('[example-container]');
+      },
+
+      trimEmptyLines: function (text) {
+        return text.replace(/^([\n\r]+)|([\n\r]+)$/g, '');
+      }
+    });
+  </script>
+</polymer-element>
+
