@@ -1,17 +1,7 @@
 # zorro-docs-maker
 
-1. read `z-*.html` code comment
-    * put comment into entries
-    * convert markdown to html
-    * find `@element`, `@attribute`, `@property`, `@method`, `@event`
-2. read `demo.html` code samples
-    * find `section[primary]`, `[title]`, `[demo]`
-3. generate docs
-    * tag name
-    * description
-    * demo + code snippets
-    * more description
-        * attribute
-        * property
-        * method
-        * event
+1. read `@element` comment block in `z-*.html`
+    * find `@attribute`, `@property`, `@method`, `@event`, `@example`
+2. generate demo page
+    * convert description to markdown
+    * show name, demo and code of each example
