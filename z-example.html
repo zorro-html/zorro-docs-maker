@@ -18,10 +18,24 @@
 
       container: null,
 
+      runCode: function (code) {
+        var scripts = code.match(/<script[\s\S]*?>[\s\S]*?<\/script>/g);
+        scripts = scripts && scripts.map(function (script) {
+          return script.match(/<script[\s\S]*?>([\s\S]*?)<\/script>/)[1];
+        });
+        clearTimeout(this.scriptTimer);
+        this.scriptTimer = setTimeout(function () {
+          scripts && scripts.forEach(function (script) {
+            eval(script);
+          });
+        }.bind(this), 100);
+      },
+
       codeChanged: function () {
         this.code = this.trimEmptyLines(this.code);
         if (this.container) {
           this.container.innerHTML = this.code;
+          this.runCode(this.code);
         }
       },
 
