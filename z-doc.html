@@ -6,12 +6,21 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../z-markdown/z-markdown.html">
 <link rel="import" href="z-example.html">
+<link rel="import" href="../z-typo/z-typo.html">
+
+<style>
+  @font-face {font-family: 'Russo One'; font-style: normal; font-weight: 400; src: local('Russo One'), local('RussoOne-Regular'), url(../fonts/RussoOne.woff2) format('woff2'), url(../fonts/RussoOne.woff) format('woff');}
+  @font-face {font-family: 'Play'; font-style: normal; font-weight: 400; src: local('Play'), url(../fonts/Play.woff2) format('woff2'), url(../fonts/Play.woff) format('woff');}
+  body {font-family: 'Play', sans-serif;}
+  html /deep/ h1 {font-family: 'Russo One', sans-serif;}
+</style>
 
 <script src="../docs-parser/docs-parser.js"></script>
 <script src="docs-maker.js"></script>
 
-<polymer-element name="z-doc" attributes="name, path">
+<polymer-element name="z-doc" attributes="name, path" z>
   <template>
+    <style>:host {display: block; max-width: 800px; padding: 2em; margin: auto;}</style>
     <z-markdown text="{{info.description}}"></z-markdown>
     <template if="{{info.examples.length}}">
       <h2>Examples</h2>
