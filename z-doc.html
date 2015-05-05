@@ -17,7 +17,9 @@
       <h2>Examples</h2>
     </template>
     <template repeat="{{example in info.examples}}">
-      <h3>{{example.name}}</h3>
+      <template if="{{example.name !== 'default'}}">
+        <h3>{{example.name}}</h3>
+      </template>
       <z-example code="{{example.description}}"></z-example>
     </template>
   </template>
