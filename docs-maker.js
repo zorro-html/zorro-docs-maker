@@ -1,21 +1,11 @@
 /**
  * # Zorro Docs Maker
  * 
- * 1. read `z-*`.html
- *   - put comment into entries
- *   - convert markdown to html
- *   - find `@element`, `@attribute`, `@property`, `@method`, `@event`
- * 2. read `demo.html` code samples
- *   - find `section[primary]`, `[title]`, `[demo]`
- * 3. generate docs
- *   - tag name
- *   - description
- *   - demo + code snippets
- *   - more description
- *     - attribute
- *     - property
- *     - method
- *     - event
+ * 1. read `@element` comment block in `z-*.html`
+ *     - find `@attribute`, `@property`, `@method`, `@event`, `@example`
+ * 2. generate demo page
+ *     - convert description to markdown
+ *     - show name, demo and code of each example
  */
 
 
@@ -26,6 +16,10 @@
 
   if (typeof DocsParser === 'undefined') {
     DocsParser = require('../docs-parser/docs-parser');
+  }
+
+  function trimEmptyLines(text) {
+    return text.replace(/^([\n\r]+)|([\n\r]+)$/g, '');
   }
 
   function readFile(path, done) {
@@ -76,21 +70,39 @@
   };
 
   ZorroInfo.prototype.genInfo = function () {
-    return JSON.stringify(this.info);
+    return JSON.parse(JSON.stringify(this.info));
   };
 
   ZorroInfo.prototype.genREADME = function () {
-    var info = this.info;
-    return info.readme;
+    var info = this.info[0];
+    var readmeResult = trimEmptyLines(info.description);
+    var exampleResult;
+
+    exampleResult = info.examples.map(function (example) {
+      var title = '';
+      if (example.name !== 'default') {
+        title = '### ' + example.name + '\n\n';
+      }
+      return title + '```\n' + trimEmptyLines(example.description) + '\n```\n';
+    }).join('\n');
+
+    if (exampleResult) {
+      readmeResult = readmeResult + '\n\n## Examples\n\n' + exampleResult;
+    }
+
+    return readmeResult;
   };
 
-  ZorroInfo.prototype.genDemo = function () {
-    var info = this.info;
-    return JSON.stringify(info.demo);
-  };
 
 
 
-
-  global.ZorroInfo = ZorroInfo;
+  if (inNode) {
+    exports.ZorroInfo = ZorroInfo;
+    exports.readFile = readFile;
+    exports.writeFile = writeFile;
+  }
+  else {
+    global.ZorroInfo = ZorroInfo;
+    global.trimEmptyLines = trimEmptyLines;
+  }
 }(this));

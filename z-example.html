@@ -32,7 +32,7 @@
       },
 
       codeChanged: function () {
-        this.code = this.trimEmptyLines(this.code);
+        this.code = trimEmptyLines(this.code);
         if (this.container) {
           this.container.innerHTML = this.code;
           this.runCode(this.code);
@@ -41,10 +41,6 @@
 
       ready: function () {
         this.container = this.shadowRoot.querySelector('[example-container]');
-      },
-
-      trimEmptyLines: function (text) {
-        return text.replace(/^([\n\r]+)|([\n\r]+)$/g, '');
       }
     });
   </script>
