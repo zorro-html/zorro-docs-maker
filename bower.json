@@ -2,7 +2,7 @@
   "name": "zorro-docs-maker",
   "dependencies": {
     "polymer": "Polymer/polymer#~0.5",
-    "z-markdown": "Jinjiang/z-markdown",
-    "docs-parser": "Jinjiang/context-free-parser"
+    "z-markdown": "zorro-html/z-markdown",
+    "docs-parser": "zorro-html/zorro-docs-parser"
   }
 }
